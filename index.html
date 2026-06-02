@@ -1,152 +1,170 @@
-
 <style>
-.step-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px 18px; display: flex; align-items: flex-start; gap: 14px; }
-.step-num { min-width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; flex-shrink: 0; margin-top: 2px; }
-.step-body { flex: 1; }
-.step-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin: 0 0 2px; }
-.step-desc { font-size: 12px; color: var(--color-text-secondary); margin: 0 0 6px; }
-.step-date { font-size: 13px; font-weight: 500; color: var(--color-text-primary); background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 4px 10px; display: inline-block; }
-.step-date.pending { color: var(--color-text-tertiary); background: none; padding: 0; }
-.connector { display: flex; align-items: center; padding: 0 0 0 32px; margin: 2px 0; }
-.connector-line { width: 1px; height: 18px; background: var(--color-border-secondary); margin-left: 13px; }
-.connector-label { font-size: 11px; color: var(--color-text-tertiary); margin-left: 10px; }
-.parallel-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.date-input-wrap { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 16px 20px; margin-bottom: 16px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+* { font-family: var(--font-sans), system-ui, -apple-system, sans-serif; box-sizing: border-box; }
+.wrap { padding: 4px 0 8px; }
+.date-input-wrap { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 14px 18px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .date-input-wrap label { font-size: 13px; color: var(--color-text-secondary); white-space: nowrap; }
-.date-input-wrap input[type=date] { font-size: 14px; }
-.num-blue { background: #E6F1FB; color: #0C447C; }
-.num-teal { background: #E1F5EE; color: #085041; }
-.num-coral { background: #FAECE7; color: #712B13; }
-.num-amber { background: #FAEEDA; color: #633806; }
-.num-gray { background: var(--color-background-secondary); color: var(--color-text-secondary); }
-.date-blue { color: #185FA5; }
-.date-teal { color: #0F6E56; }
-.date-coral { color: #993C1D; }
-.date-amber { color: #854F0B; }
+.date-input-wrap input[type=date] { font-size: 14px; font-family: var(--font-sans), system-ui, sans-serif; }
+.step-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px 16px; display: flex; align-items: flex-start; gap: 12px; }
+.step-num { min-width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; flex-shrink: 0; margin-top: 1px; font-family: var(--font-sans), sans-serif; }
+.step-body { flex: 1; }
+.step-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin: 0 0 2px; font-family: var(--font-sans), sans-serif; }
+.step-desc { font-size: 12px; color: var(--color-text-secondary); margin: 0 0 8px; font-family: var(--font-sans), sans-serif; }
+.step-date { font-size: 12px; font-weight: 500; border-radius: 6px; padding: 3px 10px; display: inline-block; font-family: var(--font-sans), sans-serif; }
+.step-date.pending { color: var(--color-text-tertiary); background: none; padding: 0; font-weight: 400; }
+.parallel-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.connector { display: flex; align-items: center; gap: 10px; padding: 0 0 0 12px; margin: 3px 0; }
+.connector-line { width: 1px; height: 20px; background: var(--color-border-secondary); flex-shrink: 0; }
+.connector-label { font-size: 11px; color: var(--color-text-tertiary); font-family: var(--font-sans), sans-serif; }
+.tag-embargo { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 20px; margin-left: 8px; font-family: var(--font-sans), sans-serif; background: #FAEEDA; color: #633806; }
+.num-blue   { background: #E6F1FB; color: #185FA5; }
+.num-teal   { background: #E1F5EE; color: #0F6E56; }
+.num-coral  { background: #FAECE7; color: #993C1D; }
+.num-amber  { background: #FAEEDA; color: #854F0B; }
+.num-gray   { background: var(--color-background-secondary); color: var(--color-text-secondary); }
+.num-purple { background: #EEEDFE; color: #534AB7; }
+.date-blue   { background: #E6F1FB; color: #185FA5; }
+.date-teal   { background: #E1F5EE; color: #0F6E56; }
+.date-coral  { background: #FAECE7; color: #993C1D; }
+.date-amber  { background: #FAEEDA; color: #854F0B; }
+.date-gray   { background: var(--color-background-secondary); color: var(--color-text-secondary); }
+.date-purple { background: #EEEDFE; color: #534AB7; }
 </style>
 
-<div class="date-input-wrap">
-  <i class="ti ti-calendar" style="font-size:20px; color:var(--color-text-secondary);" aria-hidden="true"></i>
-  <label for="fecha-inicio">Fecha de recepción de BBDD</label>
-  <input type="date" id="fecha-inicio" oninput="calcFechas()" style="flex:1; min-width:160px;">
-</div>
-
-<div id="flujo" style="display:flex; flex-direction:column; gap:0;">
-
-  <div class="step-card">
-    <div class="step-num num-blue">1</div>
-    <div class="step-body">
-      <p class="step-title">Recepción de BBDD</p>
-      <p class="step-desc">Se reciben las bases de datos de terceros</p>
-      <span class="step-date pending" id="d1">Selecciona una fecha arriba</span>
-    </div>
+<div class="wrap">
+  <div class="date-input-wrap">
+    <label for="fi">Fecha de recepción de BBDD</label>
+    <input type="date" id="fi" oninput="calc()" style="flex:1;min-width:160px;">
   </div>
 
-  <div class="connector"><div class="connector-line"></div><span class="connector-label">+4 días hábiles de preparación</span></div>
+  <div style="display:flex;flex-direction:column;gap:0;">
 
-  <div class="parallel-row">
     <div class="step-card">
-      <div class="step-num num-teal">2a</div>
+      <div class="step-num num-blue">1</div>
       <div class="step-body">
-        <p class="step-title">Call center listo</p>
-        <p class="step-desc">Equipo preparado para atención</p>
-        <span class="step-date pending" id="d2a">—</span>
+        <p class="step-title">Recepción de BBDD</p>
+        <p class="step-desc">Se reciben las bases de datos de terceros</p>
+        <span class="step-date pending" id="d1">Selecciona una fecha</span>
       </div>
     </div>
-    <div class="step-card">
-      <div class="step-num num-teal">2b</div>
-      <div class="step-body">
-        <p class="step-title">Printing listo</p>
-        <p class="step-desc">Cartas impresas para envío</p>
-        <span class="step-date pending" id="d2b">—</span>
+
+    <div class="connector"><div class="connector-line"></div><span class="connector-label">+4 días hábiles</span></div>
+
+    <div class="parallel-row">
+      <div class="step-card">
+        <div class="step-num num-teal">2a</div>
+        <div class="step-body">
+          <p class="step-title">Call center listo</p>
+          <p class="step-desc">Equipo preparado para atención</p>
+          <span class="step-date pending" id="d2a">—</span>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num num-teal">2b</div>
+        <div class="step-body">
+          <p class="step-title">Printing listo</p>
+          <p class="step-desc">Cartas impresas para envío</p>
+          <span class="step-date pending" id="d2b">—</span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="connector"><div class="connector-line"></div><span class="connector-label">Mismo día</span></div>
+    <div class="connector"><div class="connector-line"></div><span class="connector-label">Mismo día</span></div>
 
-  <div class="parallel-row">
     <div class="step-card">
-      <div class="step-num num-coral">3a</div>
+      <div class="step-num num-purple">3</div>
       <div class="step-body">
-        <p class="step-title">Envío de carta</p>
-        <p class="step-desc">Carta enviada al cliente</p>
-        <span class="step-date pending" id="d3a">—</span>
+        <p class="step-title">Brief a la prensa <span class="tag-embargo">Con embargo</span></p>
+        <p class="step-desc">Se comparte el comunicado con los medios bajo embargo de publicación</p>
+        <span class="step-date pending" id="d3">—</span>
       </div>
     </div>
-    <div class="step-card">
-      <div class="step-num num-coral">3b</div>
-      <div class="step-body">
-        <p class="step-title">Publicación en prensa</p>
-        <p class="step-desc">Anuncio publicado</p>
-        <span class="step-date pending" id="d3b">—</span>
+
+    <div class="connector"><div class="connector-line"></div><span class="connector-label">+1 día hábil</span></div>
+
+    <div class="parallel-row">
+      <div class="step-card">
+        <div class="step-num num-coral">4a</div>
+        <div class="step-body">
+          <p class="step-title">Envío de carta</p>
+          <p class="step-desc">Carta enviada al cliente</p>
+          <span class="step-date pending" id="d4a">—</span>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num num-coral">4b</div>
+        <div class="step-body">
+          <p class="step-title">Publicación en prensa</p>
+          <p class="step-desc">Embargo levantado, anuncio publicado</p>
+          <span class="step-date pending" id="d4b">—</span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="connector"><div class="connector-line"></div><span class="connector-label">Mismo día</span></div>
+    <div class="connector"><div class="connector-line"></div><span class="connector-label">Mismo día</span></div>
 
-  <div class="step-card">
-    <div class="step-num num-amber">4</div>
-    <div class="step-body">
-      <p class="step-title">Landing page activa</p>
-      <p class="step-desc">Página disponible para el cliente</p>
-      <span class="step-date pending" id="d4">—</span>
+    <div class="step-card">
+      <div class="step-num num-amber">5</div>
+      <div class="step-body">
+        <p class="step-title">Landing page activa</p>
+        <p class="step-desc">Página disponible para el cliente</p>
+        <span class="step-date pending" id="d5">—</span>
+      </div>
     </div>
-  </div>
 
-  <div class="connector"><div class="connector-line"></div><span class="connector-label">A partir de esta fecha</span></div>
+    <div class="connector"><div class="connector-line"></div><span class="connector-label">A partir de esta fecha</span></div>
 
-  <div class="step-card">
-    <div class="step-num num-gray">5</div>
-    <div class="step-body">
-      <p class="step-title">Cliente llama al call center</p>
-      <p class="step-desc">Call center deriva según opciones seleccionadas</p>
-      <span class="step-date pending" id="d5">—</span>
+    <div class="step-card">
+      <div class="step-num num-gray">6</div>
+      <div class="step-body">
+        <p class="step-title">Cliente llama al call center</p>
+        <p class="step-desc">Call center deriva según opciones seleccionadas</p>
+        <span class="step-date pending" id="d6">—</span>
+      </div>
     </div>
-  </div>
 
+  </div>
 </div>
 
 <script>
-function addDiasHabiles(fecha, dias) {
+function addHabiles(fecha, dias) {
   let d = new Date(fecha);
-  let agregados = 0;
-  while (agregados < dias) {
+  let n = 0;
+  while (n < dias) {
     d.setDate(d.getDate() + 1);
-    const dow = d.getDay();
-    if (dow !== 0 && dow !== 6) agregados++;
+    if (d.getDay() !== 0 && d.getDay() !== 6) n++;
   }
   return d;
 }
 
 function fmt(d) {
   if (!d) return '—';
-  return d.toLocaleDateString('es-PR', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+  return d.toLocaleDateString('es-PR', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
 }
 
-function setDate(id, d, cls) {
+function setD(id, d, cls) {
   const el = document.getElementById(id);
-  el.textContent = fmt(d);
-  el.className = 'step-date ' + (cls || '');
+  el.textContent = d ? fmt(d) : '—';
+  el.className = 'step-date ' + (d ? cls : 'pending');
 }
 
-function calcFechas() {
-  const val = document.getElementById('fecha-inicio').value;
-  if (!val) return;
-  const partes = val.split('-');
-  const d1 = new Date(parseInt(partes[0]), parseInt(partes[1]) - 1, parseInt(partes[2]));
-  const d2 = addDiasHabiles(d1, 4);
+function calc() {
+  const v = document.getElementById('fi').value;
+  if (!v) return;
+  const p = v.split('-');
+  const d1 = new Date(+p[0], +p[1]-1, +p[2]);
+  const d2 = addHabiles(d1, 4);
   const d3 = d2;
-  const d4 = d2;
-  const d5 = d2;
+  const d4 = addHabiles(d3, 1);
+  const d5 = d4;
+  const d6 = d4;
 
-  setDate('d1', d1, 'date-blue');
-  setDate('d2a', d2, 'date-teal');
-  setDate('d2b', d2, 'date-teal');
-  setDate('d3a', d3, 'date-coral');
-  setDate('d3b', d3, 'date-coral');
-  setDate('d4', d4, 'date-amber');
-  setDate('d5', d5, 'date-amber');
+  setD('d1',  d1,  'date-blue');
+  setD('d2a', d2,  'date-teal');
+  setD('d2b', d2,  'date-teal');
+  setD('d3',  d3,  'date-purple');
+  setD('d4a', d4,  'date-coral');
+  setD('d4b', d4,  'date-coral');
+  setD('d5',  d5,  'date-amber');
+  setD('d6',  d6,  'date-gray');
 }
 </script>
